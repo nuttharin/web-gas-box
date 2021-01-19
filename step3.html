@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>GAS-Admin</title>
+
+  <!-- Custom fonts for this template-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+<style>
+    .navbar-brand {
+        color : white !important;
+        font-size: 1.5rem !important;
+    }
+
+    
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #1568AC;
+        color: white;
+        text-align: center;
+        line-height: 1; 
+    }
+  
+    body {
+        font-family: 'Kanit', sans-serif !important; 
+
+    }
+
+
+    /* .card {
+        margin: 0 auto; 
+        float: none; 
+        margin-top: 3rem;
+         border: none;
+    }
+    .card-body{
+
+    } */
+    div.container4 {
+        
+       padding-top: 1rem;
+       
+    }
+
+    #pin .btn-pin {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 22px;
+        line-height: 1.428571429;
+        font-weight: 500;
+        background-color: #1568AC;
+        color: white;
+
+
+    }
+    .x {
+        margin: 0 auto;
+    }
+
+    .btn-next  {
+        background-color: #1568AC;
+        color: white;
+
+    }
+    #pin2 .btn-pin{
+        background-color: white;
+        color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 22px;
+        line-height: 1.428571429;
+        font-weight: 500;
+    }
+
+    .input-pass input {
+        width: 35px;
+        border-radius: 4px;
+
+    }
+
+    #edit-pin {
+        width: 40px;
+        padding-top: 5px;
+        cursor: pointer;
+
+    }
+
+    #btn-cancle {
+        text-decoration: underline !important;
+        padding: 5px 0;
+        padding-top: 10px;
+    }
+
+    
+   
+
+</style>
+
+<body id="">
+
+    <nav class="navbar navbar-expand navbar-light topbar mb-2 static-top shadow" style="background-color:#1568AC;height: 3rem">
+        <a class="navbar-brand" href="#">Chill Gas</a>
+    </nav>
+   
+
+    <div class="">
+        <div class="row text-center">
+            <div class="col-md-4 col-sm-12">
+
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <p>กรุณากรอกรหัสที่ได้รับในแอปพลิเคชัน</p>
+            </div>
+            <div class="col-md-4 col-sm-12">
+
+            </div>
+            
+        </div>
+
+
+        <div class="row mb-3">
+            <div class="col-md-4 col-sm-12 "></div>
+            <div class="col-md-4 col-sm-12 align-items-center x">
+                <div class="row input-pass">
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass1" maxlength="1">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass2" maxlength="1">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass3" maxlength="1">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass4" maxlength="1">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass5" maxlength="1"> 
+                    </div>
+                    <div class="col-md-2">
+                        <input type="password" class="form-control" id="pass6" maxlength="1">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 ">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <img src="public/img/vector.jpg" id="edit-pin" alt="" style="">  
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12 "></div> 
+            <div class="col-md-4 col-sm-12 " id="pin">
+                <div class="align-items-center container x" > 
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="1" onclick="myFunction(1)">1</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="2" onclick="myFunction(2)">2</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="3" onclick="myFunction(3)">3</button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 " id="pin2">
+                <!-- <button type="button" class="btn btn-next">ถัดไป   ></button> -->  
+            </div> 
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12 "></div> 
+            <div class="col-md-4 col-sm-12" id="pin">
+                <div class="align-items-center container x" >                     
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="4" onclick="myFunction(4)">4</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="5" onclick="myFunction(5)">5</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="6" onclick="myFunction(6)">6</button>
+                        </div>  
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 " id="pin2">              
+            </div> 
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 col-sm-12 "></div> 
+
+            <div class="col-md-4 col-sm-12" id="pin">
+                <div class="align-items-center container x" > 
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="7" onclick="myFunction(7)">7</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="8" onclick="myFunction(8)">8</button>
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="9" onclick="myFunction(9)">9</button>
+                        </div>  
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 " id="pin2">
+            </div> 
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12 ">
+                <!-- <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-danger mt-2">ยกเลิก</button>
+                    </div>
+
+                </div> -->
+            </div> 
+            <div class="col-md-4 col-sm-12" id="pin">
+                <div class="container x" >                    
+                    <div class="row mb-1">
+
+                        <div class="col-md-4">
+                            <!-- <div class="col-md-1">
+                                <button type="button" class="btn btn-link text-left" id="btn-cancle">ยกเลิก</button>
+                            </div> -->
+                            <button type="button" class="btn btn-link" id="btn-cancle">ยกเลิก</button>
+                            <!-- <button type="button" class="btn btn-pin" value="0" onclick="myFunction(0)">0</button> -->
+
+                        </div> 
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-pin" value="0" onclick="myFunction(0)">0</button>
+                        </div> 
+                        <div class="col-md-4">                           
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12" id="pin2">
+                <!-- <button type="button" class="btn btn-danger mt-2" id="btn-cancle">ยกเลิก</button> -->
+            </div> 
+
+        </div>
+        
+       
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-right text-lg-start">
+        <!-- Copyright -->
+        <div class="text-right p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+          © Powered by Chill Talk
+          
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- End of Footer -->
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="public/vendor/jquery/jquery.min.js"></script>
+  <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="public/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="public/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="public/js/demo/chart-area-demo.js"></script>
+  <script src="public/js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
+<script>
+    let lastInput = 1 ;
+    $(document).ready( ()=> {
+        
+        $('#pass1').focus();
+        // $('#pass1').keyup(()=>{
+        //     $('#pass2').focus();
+        //     lastInput = 1
+
+        // })
+        // $('#pass2').keyup(()=>{
+        //     $('#pass3').focus();
+        //     lastInput = 2
+
+        // })
+        // $('#pass3').keyup(()=>{
+        //     $('#pass4').focus();
+        //     lastInput = 3
+
+        // })
+        // $('#pass4').keyup(()=>{
+        //     $('#pass5').focus();
+        //     lastInput = 4
+
+        // })
+        // $('#pass5').keyup(()=>{
+        //     $('#pass6').focus();
+        //     lastInput = 5
+
+        // })
+        // $('#pass6').keyup(()=>{
+        //     lastInput = 6
+
+        // })
+
+        $('#edit-pin').click(()=>{
+            //lastInput -=1
+            if(lastInput > 1 && lastInput <6)
+            {
+                lastInput -=1
+                console.log("del"+lastInput)
+                $('#pass'+(lastInput).toString()).val("");            
+                $('#pass'+lastInput.toString()).focus();
+            } 
+            else if($('#pass6').val() == "")
+            {
+                lastInput -= 1
+                console.log("del"+lastInput)
+                $('#pass'+(lastInput).toString()).val("");            
+                $('#pass'+lastInput.toString()).focus();
+            }
+            else{
+                console.log("del"+lastInput)
+                $('#pass'+(lastInput).toString()).val("");            
+                $('#pass'+lastInput.toString()).focus();
+            }
+            
+        })
+
+        $('#btn-cancle').click(()=>{
+           
+            window.location.href = "index.html"
+
+        })
+
+    });
+    function myFunction(data) {
+        //console.log(data)
+        // if(lastInput == 0)
+        // {
+        //     lastInput = 1
+        // }
+        //console.log(document.getElementById("pass6").value)
+        if(document.getElementById("pass6").value == "")
+        {
+            console.log("กด"+lastInput)
+            document.getElementById("pass"+lastInput).value = data;
+            if(lastInput < 6){
+                lastInput +=1
+            }       
+            document.getElementById("pass"+lastInput).focus();
+            console.log(lastInput)
+        }
+        else if(document.getElementById("pass6").value != ""){
+            console.log("disable")
+        }
+      
+
+    }
+
+</script>
