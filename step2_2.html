@@ -152,7 +152,7 @@
             </div>
             <div class="col-md-4 col-sm-12 "></div>
             <div class="col-md-2 col-sm-12 d-flex justify-content-center">              
-                <button type="button" class="btn btn-primary" id="btn-cancle">ถัดไป &nbsp;></button>
+                <button type="button" class="btn btn-primary" id="btn-success">ถัดไป &nbsp;></button>
 
             </div>
             <div class="col-md-2 col-sm-12">              
@@ -215,11 +215,12 @@
  
 
 
-      $("#box1").click( ()=> {
-        window.location.href = "step2_1.html"
+      $("#btn-success").click( ()=> {
+          console.log('ccc')
+        window.location.href = "step3.html?type=in"
       });
-      $("#box2").click( ()=> {
-        window.location.href = "step2_2.html"
+      $("#btn-cancle").click( ()=> {
+        window.location.href = "index.html"
 
       });
       
