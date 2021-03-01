@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,7 +138,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 d-flex justify-content-center" id="qrcode">
-	        	<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://devbanban.com/&choe=UTF-8" title="Link to my Website" />
+	        	<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=GASSHOP14230&choe=UTF-8" title="Link to my Website" />
 
             </div>
             <div class="col-md-4 col-sm-12 "></div>
@@ -152,7 +154,7 @@
             </div>
             <div class="col-md-4 col-sm-12 "></div>
             <div class="col-md-2 col-sm-12 d-flex justify-content-center">              
-                <button type="button" class="btn btn-primary" id="btn-cancle">ถัดไป &nbsp;></button>
+                <button type="button" class="btn btn-primary" id="btn-next">ถัดไป &nbsp;></button>
 
             </div>
             <div class="col-md-2 col-sm-12">              
@@ -210,23 +212,46 @@
 </body>
 
 </html>
-<script>
+<script type="text/javascript" src="env.js"></script> 
+
+<script >
     $(document).ready( ()=> {
  
 
 
-      $("#box1").click( ()=> {
-        window.location.href = "step2_1.html"
-      });
-      $("#box2").click( ()=> {
-        window.location.href = "step2_2.html"
 
-      });
+        $("#btn-cancle").click( ()=> {
+            window.location.href = "index.html"
 
-      $("#btn-cancle").click( ()=> {
-        window.location.href = "index.html"
+        });
+        $("#btn-next").click( ()=>{
+            window.location.href = "step3.html?type=out"
+        })
 
-      });
+
+        // var ip = location.host;
+        // var apiUrl = ""
+        // console.log(ipAddress.URL_API_MID)
+        console.log(ipAddress.IP_MACHINE)
+        
+        // fetch("http://"+ipAddress.URL_API_MID+"/app/get/machine/getMachineCodeFromIP?ip="+ipAddress.IP_MACHINE, {
+        //     method: "GET", 
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     // body: JSON.stringify({ ip : ipAddress.IP_MACHINE})
+        // }).then((response) => response.json())
+        // //Then with the data from the response in JSON...
+        // .then((data) => {
+        //     console.log( data);
+        //     //console.log(data.data.check_password == false)
+            
+        // })
+        // //Then with the error genereted...
+        // .catch((error) => {
+        //    console.log(error)
+        // });
+
       
 
 
