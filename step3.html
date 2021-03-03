@@ -402,37 +402,18 @@
     // span.onclick = function() {
     //     modal.style.display = "none";
     // }
+    function clearInput(){
+        document.getElementById("pass1").value = "";
+        document.getElementById("pass2").value = "";
+        document.getElementById("pass3").value = "";
+        document.getElementById("pass4").value = "";
+        document.getElementById("pass5").value = "";
+        document.getElementById("pass6").value = "";
+        document.getElementById("pass1").focus();
+    }
 
-    function myFunction(data) {
-        //console.log(data)
-        // if(lastInput == 0)
-        // {
-        //     lastInput = 1
-        // }
-        //console.log(document.getElementById("pass6").value)
-        // var modal = document.getElementById("modal");
-        // modal.style.display = "block";
-        // console.log('dd')
-
-
-
-        // swal({
-        //     title: 'Auto close alert!',
-        //     text: 'I will close in 5 seconds.',
-        //     timer: 5000,
-        //     onOpen: function () {
-        //         swal.showLoading()
-        //     }
-        //     }).then(
-        //     function () {},
-        //     // handling the promise rejection
-        //     function (dismiss) {
-        //         if (dismiss === 'timer') {
-        //         console.log('I was closed by the timer')
-        //         }
-        // })
-
-
+    function myFunction(data) 
+    {
 
         if(document.getElementById("pass6").value == "")
         {
@@ -448,64 +429,82 @@
             console.log(lastInput)
             if(document.getElementById("pass6").value != "")
             {
+               
+                let pass = document.getElementById("pass1").value + document.getElementById("pass2").value 
+                + document.getElementById("pass3").value +  document.getElementById("pass4").value +
+                document.getElementById("pass5").value + document.getElementById("pass6").value
+                //console.log(pass)  
                 if(type == "in")
                 {
-                    let pass = document.getElementById("pass1").value + document.getElementById("pass2").value 
-                    + document.getElementById("pass3").value +  document.getElementById("pass4").value +
-                    document.getElementById("pass5").value + document.getElementById("pass6").value
-                    //console.log(pass)  
-
-
                     fetch("http://localhost:8080/app/post/driver/checkPwdMachineStation", {
-                        method: "POST", 
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ password_machine : pass})
+                    method: "POST", 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password_machine : pass})
                     }).then((response) => response.json())
                     //Then with the data from the response in JSON...
                     .then((data) => {
-                        console.log( data);
-                        console.log(data.data.check_password == false)
-                        if(data.data.check_password == false)
+                        // console.log( data);
+                        // console.log(data.data.check_password == false)
+                        if(data.statusCode == 201)
                         {
-                            document.getElementById("pass1").value = "";
-                            document.getElementById("pass2").value = "";
-                            document.getElementById("pass3").value = "";
-                            document.getElementById("pass4").value = "";
-                            document.getElementById("pass5").value = "";
-                            document.getElementById("pass6").value = "";
-                            document.getElementById("pass1").focus();
+                            if(data.data.check_password == false)
+                            {
+                                // document.getElementById("pass1").value = "";
+                                // document.getElementById("pass2").value = "";
+                                // document.getElementById("pass3").value = "";
+                                // document.getElementById("pass4").value = "";
+                                // document.getElementById("pass5").value = "";
+                                // document.getElementById("pass6").value = "";
+                                // document.getElementById("pass1").focus();
+                                clearInput();
+                                swal({
+                                    width: 300,
+                                    icon: "error",
+                                    text: "รหัสผ่านผิด !",
+                                    button: "ตกลง",
+                                });
+                            }
+                            else{
+                                // true
+                            }
+                        }
+                        else{
                             swal({
                                 width: 300,
                                 icon: "error",
-                                text: "รหัสผ่านผิด !",
+                                text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
                                 button: "ตกลง",
                             });
                         }
+                        
                     })
                     //Then with the error genereted...
                     .catch((error) => {
-                        document.getElementById("pass1").value = "";
-                        document.getElementById("pass2").value = "";
-                        document.getElementById("pass3").value = "";
-                        document.getElementById("pass4").value = "";
-                        document.getElementById("pass5").value = "";
-                        document.getElementById("pass6").value = "";
+                        clearInput();
 
                         swal({
                             html:true,
-                                width: 300,
-                                icon: "error",
-                                text: "<div class='loader'></div>",
-                                button: "ตกลง",
-                            });
+                            width: 300,
+                            icon: "error",
+                            text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                            button: "ตกลง",
+                        });
                     });
+                }
+                else{
+                    // type == "out"
+
+
 
                 }
-                else {
-                    
-                }
+
+
+
+                
+
+               
                 
             
             

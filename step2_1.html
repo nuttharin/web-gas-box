@@ -204,24 +204,17 @@
 
 <script >
     $(document).ready( ()=> {
- 
-
-
 
         $("#btn-cancle").click( ()=> {
-            window.location.href = "index.html"
-
+            window.location.href = "index.html";
         });
         $("#btn-next").click( ()=>{
-            window.location.href = "step3.html?type=out"
+            window.location.href = "step3.html?type=out" ;
         })
-
-
         // var ip = location.host;
         // var apiUrl = ""
         // console.log(ipAddress.URL_API_MID)
-        console.log(ipAddress.IP_MACHINE)
-        
+        // console.log(ipAddress.IP_MACHINE)        
         fetch("http://"+ipAddress.URL_API_MID+"/app/get/machine/getMachineCodeFromIP?ip="+ipAddress.IP_MACHINE, {
             method: "GET", 
             headers: {
@@ -245,9 +238,7 @@
                         text: "ไม่สามารถสร้าง QR ได้กรุณาติดต่อ Admin !",
                         button: "ตกลง",
                     });
-            }
-            //console.log(data.data.check_password == false)
-            
+            }            
         })
         //Then with the error genereted...
         .catch((error) => {

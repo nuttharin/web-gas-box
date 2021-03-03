@@ -136,7 +136,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 d-flex justify-content-center" id="qrcode">
-	        	<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://devbanban.com/&choe=UTF-8" title="Link to my Website" />
+	        	<!-- <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://devbanban.com/&choe=UTF-8" title="Link to my Website" /> -->
 
             </div>
             <div class="col-md-4 col-sm-12 "></div>
@@ -210,6 +210,8 @@
 </body>
 
 </html>
+<script type="text/javascript" src="env.js"></script> 
+
 <script>
     $(document).ready( ()=> {
  
@@ -217,12 +219,41 @@
 
       $("#btn-success").click( ()=> {
           console.log('ccc')
-        window.location.href = "step3.html?type=in"
+        window.location.href = "step3.html?type=in";
       });
       $("#btn-cancle").click( ()=> {
-        window.location.href = "index.html"
-
+        window.location.href = "index.html";
       });
+
+      fetch("http://"+ipAddress.URL_API_MID+"/app/get/machine/getMachineCodeFromIP?ip="+ipAddress.IP_MACHINE, {
+            method: "GET", 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // body: JSON.stringify({ ip : ipAddress.IP_MACHINE})
+        })
+        .then((response) => response.json())
+        //Then with the data from the response in JSON...
+        .then((data) => {
+            console.log( data);
+            if(data.statusCode == 201)
+            {
+                $('#qrcode').append('<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='+data.data.id+'-'+data.data.machine_code+'&choe=UTF-8" title="Link to my Website" />')
+            }
+            else
+            {
+                swal({
+                        width: 300,
+                        icon: "error",
+                        text: "ไม่สามารถสร้าง QR ได้กรุณาติดต่อ Admin !",
+                        button: "ตกลง",
+                    });
+            }            
+        })
+        //Then with the error genereted...
+        .catch((error) => {
+           console.log(error)
+        });
       
 
 
