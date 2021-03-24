@@ -439,7 +439,7 @@
                     if(pass == "111111")
                     {
                         console.log("by Pass")
-                        fetch("http://localhost:8080/app/post/machine/command/testGasOut", {
+                        fetch("http://"+ipAddress.URL_API_MID+"/app/post/machine/command/testGasOut", {
                         method: "POST", 
                         headers: {
                             'Content-Type': 'application/json',
