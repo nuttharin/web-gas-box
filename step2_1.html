@@ -103,6 +103,12 @@
     #qrcode{
         margin-top: -22px;
     }
+
+    #qr1
+    {
+        height: 300px;
+        width: 300px;
+    }
 </style>
 
 <body id="">
@@ -215,6 +221,7 @@
         // var apiUrl = ""
         // console.log(ipAddress.URL_API_MID)
         // console.log(ipAddress.IP_MACHINE)        
+        $('#qrcode').append('<img src="qr1.png" id="qr1" />')
         fetch("http://"+ipAddress.URL_API_MID+"/app/get/machine/getMachineCodeFromIP?ip="+ipAddress.IP_MACHINE, {
             method: "GET", 
             headers: {
@@ -225,7 +232,7 @@
         .then((response) => response.json())
         //Then with the data from the response in JSON...
         .then((data) => {
-            console.log( data);
+            console.log("xxx");
             if(data.statusCode == 201)
             {
                 $('#qrcode').append('<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='+data.data.id+'-'+data.data.machine_code+'&choe=UTF-8" title="Link to my Website" />')
