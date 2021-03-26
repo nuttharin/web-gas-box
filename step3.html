@@ -421,7 +421,6 @@
         {
 
 
-
             console.log("กด"+lastInput)
             document.getElementById("pass"+lastInput).value = data;
             if(lastInput < 6){
@@ -450,26 +449,27 @@
                         }).then((response) => response.json())
                         //Then with the data from the response in JSON...
                         .then((data) => {
-                            // console.log( data);
+                            console.log("then");
+                            console.log(data);
                             // console.log(data.data.check_password == false)
                             if(data.statusCode == 201)
                             {
                                
                             }
-                            else{
-                                swal({
-                                    width: 300,
-                                    icon: "error",
-                                    text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
-                                    button: "ตกลง",
-                                });
+                            else {
+                                // swal({
+                                //     width: 300,
+                                //     icon: "error",
+                                //     text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                //     button: "ตกลง",
+                                // });
                             }
                             
                         })
                         //Then with the error genereted...
                         .catch((error) => {
                             clearInput();
-
+                            console.log("catch");
                             swal({
                                 html:true,
                                 width: 300,
@@ -480,55 +480,97 @@
                         });
                         
                     }
-                    else {
-                        fetch("http://localhost:8080/app/post/driver/checkPwdMachineStation", {
+                    else 
+                    {
+                        // fetch("http://localhost:8080/app/post/driver/checkPwdMachineStation", {
+                        // method: "POST", 
+                        // headers: {
+                        //     'Content-Type': 'application/json',
+                        // },
+                        // body: JSON.stringify({ password_machine : pass})
+                        // }).then((response) => response.json())
+                        // //Then with the data from the response in JSON...
+                        // .then((data) => {
+                        //     // console.log( data);
+                        //     // console.log(data.data.check_password == false)
+                        //     if(data.statusCode == 201)
+                        //     {
+                        //         if(data.data.check_password == false)
+                        //         {
+                                   
+                        //             clearInput();
+                        //             swal({
+                        //                 width: 300,
+                        //                 icon: "error",
+                        //                 text: "รหัสผ่านผิด !",
+                        //                 button: "ตกลง",
+                        //             });
+                        //         }
+                        //         else{
+                        //             // true
+                        //         }
+                        //     }
+                        //     else{
+                        //         swal({
+                        //             width: 300,
+                        //             icon: "error",
+                        //             text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                        //             button: "ตกลง",
+                        //         });
+                        //     }
+                            
+                        // })
+                        // //Then with the error genereted...
+                        // .catch((error) => {
+                        //     clearInput();
+
+                        //     swal({
+                        //         html:true,
+                        //         width: 300,
+                        //         icon: "error",
+                        //         text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                        //         button: "ตกลง",
+                        //     });
+                        // });
+                    }
+
+                }
+                else
+                {
+                    // type == "out"
+                    if(pass == "111111")
+                    {
+                        console.log("by Pass")
+                        fetch("http://"+ipAddress.URL_API_MID+"/app/post/machine/command/testGasOut", {
                         method: "POST", 
                         headers: {
                             'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ password_machine : pass})
+                        }
+                        //,body: JSON.stringify({ password_machine : pass})
                         }).then((response) => response.json())
                         //Then with the data from the response in JSON...
                         .then((data) => {
-                            // console.log( data);
+                            console.log("then");
+                            console.log(data);
                             // console.log(data.data.check_password == false)
                             if(data.statusCode == 201)
                             {
-                                if(data.data.check_password == false)
-                                {
-                                    // document.getElementById("pass1").value = "";
-                                    // document.getElementById("pass2").value = "";
-                                    // document.getElementById("pass3").value = "";
-                                    // document.getElementById("pass4").value = "";
-                                    // document.getElementById("pass5").value = "";
-                                    // document.getElementById("pass6").value = "";
-                                    // document.getElementById("pass1").focus();
-                                    clearInput();
-                                    swal({
-                                        width: 300,
-                                        icon: "error",
-                                        text: "รหัสผ่านผิด !",
-                                        button: "ตกลง",
-                                    });
-                                }
-                                else{
-                                    // true
-                                }
+                               
                             }
-                            else{
-                                swal({
-                                    width: 300,
-                                    icon: "error",
-                                    text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
-                                    button: "ตกลง",
-                                });
+                            else {
+                                // swal({
+                                //     width: 300,
+                                //     icon: "error",
+                                //     text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                //     button: "ตกลง",
+                                // });
                             }
                             
                         })
                         //Then with the error genereted...
                         .catch((error) => {
                             clearInput();
-
+                            console.log("catch");
                             swal({
                                 html:true,
                                 width: 300,
@@ -537,23 +579,71 @@
                                 button: "ตกลง",
                             });
                         });
+                        
                     }
+                    else 
+                    {
 
-                }
-                else{
-                    // type == "out"
+                    //     fetch("http://localhost:8080/app/post/driver/checkPwdMachineStation", {
+                    //     method: "POST", 
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     },
+                    //     body: JSON.stringify({ password_machine : pass})
+                    //     }).then((response) => response.json())
+                    //     //Then with the data from the response in JSON...
+                    //     .then((data) => {
+                    //         // console.log( data);
+                    //         // console.log(data.data.check_password == false)
+                    //         if(data.statusCode == 201)
+                    //         {
+                    //             if(data.data.check_password == false)
+                    //             {
+                    //                 // document.getElementById("pass1").value = "";
+                    //                 // document.getElementById("pass2").value = "";
+                    //                 // document.getElementById("pass3").value = "";
+                    //                 // document.getElementById("pass4").value = "";
+                    //                 // document.getElementById("pass5").value = "";
+                    //                 // document.getElementById("pass6").value = "";
+                    //                 // document.getElementById("pass1").focus();
+                    //                 clearInput();
+                    //                 swal({
+                    //                     width: 300,
+                    //                     icon: "error",
+                    //                     text: "รหัสผ่านผิด !",
+                    //                     button: "ตกลง",
+                    //                 });
+                    //             }
+                    //             else{
+                    //                 // true
+                    //             }
+                    //         }
+                    //         else{
+                    //             swal({
+                    //                 width: 300,
+                    //                 icon: "error",
+                    //                 text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                    //                 button: "ตกลง",
+                    //             });
+                    //         }
+                            
+                    //     })
+                    //     //Then with the error genereted...
+                    //     .catch((error) => {
+                    //         clearInput();
+
+                    //         swal({
+                    //             html:true,
+                    //             width: 300,
+                    //             icon: "error",
+                    //             text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                    //             button: "ตกลง",
+                    //         });
+                    //     });
+                    // }
 
 
-
-                }
-
-
-
-                
-
-               
-                
-            
+                }            
             
             }
         }
