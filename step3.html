@@ -448,6 +448,7 @@
                 + document.getElementById("pass3").value +  document.getElementById("pass4").value +
                 document.getElementById("pass5").value + document.getElementById("pass6").value
                 console.log(pass)  
+
                 if(type == "in")
                 {
                     if(pass == "111111")
@@ -473,7 +474,7 @@
                                 // swal({
                                 //     width: 300,
                                 //     icon: "error",
-                                //     text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                //     text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 //     button: "ตกลง",
                                 // });
                             }
@@ -487,7 +488,7 @@
                                 html:true,
                                 width: 300,
                                 icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 button: "ตกลง",
                             });
                         });
@@ -510,13 +511,19 @@
                         }).then((response) => response.json())
                         //Then with the data from the response in JSON...
                         .then((data) => {
-                            console.log( data);
-                            // console.log(data.data.check_password == false)
+                            //console.log( data);
+                            // data:
+                            // check_password: true
+                            // order_detail: {
+                            //     order_id: 159
+                            //     order_number: "20210603814"
+                            // }
+                            // status: "success"
+                            // statusCode: 201
                             if(data.statusCode == 201)
                             {
                                 if(data.data.check_password == false)
                                 {
-
                                     swal({
                                         width: 300,
                                         icon: "error",
@@ -525,11 +532,6 @@
                                     }).then((value) => {
                                         location.reload();
                                     });
-                                    //clearInput();
-                                // waitAalert(4000);
-
-                                    //location.reload();
-
                                 }
                                 else{
                                     // true
@@ -540,22 +542,41 @@
                                         //button: "ตกลง",
                                     });
                                     // send api python
+                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testGasOut", {
+                                        method: "POST", 
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ password_machine : pass})
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log("send api");
+                                        console.log(data)
+                                        if(data.statusCode == 201)
+                                        {
 
+                                        }
+                                        else {
+                                           
+                                        }
+                                        
+                                    })
+                                    .catch((error) => {
+                                        console.log("catch");
+                                    });
                                 }
                             }
                             else{
                                 swal({
                                     width: 300,
                                     icon: "error",
-                                    text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                    text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                     button: "ตกลง",
                                 });
                                 clearInput();
-
-                            }
-                            
+                            }                            
                         })
-                        //Then with the error genereted...
                         .catch((error) => {
                             clearInput();
 
@@ -563,7 +584,7 @@
                                 html:true,
                                 width: 300,
                                 icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 button: "ตกลง",
                             });
                         }); // end catch                        
@@ -572,7 +593,6 @@
                 }
                 else // type == "out"
                 {
-                    // type == "out"
                     if(pass == "111111")
                     {
                         console.log("by Pass")
@@ -596,7 +616,7 @@
                                 // swal({
                                 //     width: 300,
                                 //     icon: "error",
-                                //     text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                //     text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 //     button: "ตกลง",
                                 // });
                             }
@@ -610,7 +630,7 @@
                                 html:true,
                                 width: 300,
                                 icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 button: "ตกลง",
                             });
                         });
@@ -625,11 +645,10 @@
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(
-                            { 
-                                password : pass,
-                                machine_code : DATA_FIX.MACHINE_CODE                            
-                            })
+                        body: JSON.stringify({ 
+                            password : pass,
+                            machine_code : DATA_FIX.MACHINE_CODE                            
+                        })
                         }).then((response) => response.json())
                         //Then with the data from the response in JSON...
                         .then((data) => {
@@ -638,8 +657,7 @@
                             if(data.statusCode == 201)
                             {
                                 if(data.data.check_password == false)
-                                {
-    
+                                {    
                                     swal({
                                         width: 300,
                                         icon: "error",
@@ -648,10 +666,7 @@
                                     }).then((value) => {
                                         location.reload();
                                     });
-                                    //clearInput();
-                                   // waitAalert(4000);
 
-                                    //location.reload();
 
                                 }
                                 else{
@@ -663,14 +678,42 @@
                                         //button: "ตกลง",
                                     });
                                     // send api python
+                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testGasIn", {
+                                        method: "POST", 
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        }
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log("send api");
+                                        if(data.statusCode == 201)
+                                        {
 
+                                        }
+                                        else {
+                                           
+                                        }
+                                        
+                                    })
+                                    .catch((error) => {
+                                        clearInput();
+                                        console.log("catch");
+                                        swal({
+                                            html:true,
+                                            width: 300,
+                                            icon: "error",
+                                            text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                            button: "ตกลง",
+                                        });
+                                    });
                                 }
                             }
                             else{
                                 swal({
                                     width: 300,
                                     icon: "error",
-                                    text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                    text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                     button: "ตกลง",
                                 });
                                 clearInput();
@@ -686,7 +729,7 @@
                                 html:true,
                                 width: 300,
                                 icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูได้ กรุณาติดต่อ Admin",
+                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
                                 button: "ตกลง",
                             });
                         });
