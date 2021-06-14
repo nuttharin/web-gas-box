@@ -415,6 +415,11 @@
         document.getElementById("pass1").focus();
     }
 
+    function fullLoopCommand() 
+    {
+        
+    }
+
     function waitAalertError(milliseconds) 
     {
         swal({
@@ -497,8 +502,7 @@
                     else 
                     {
                         console.log("check pwd")  
-
-                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/order/checkPwdFromMachineForReture", {
+                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/order/checkPwdFromMachineForReturn", {
                         method: "POST", 
                         headers: {
                             'Content-Type': 'application/json',
@@ -542,7 +546,7 @@
                                         //button: "ตกลง",
                                     });
                                     // send api python
-                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testGasOut", {
+                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testIn", {
                                         method: "POST", 
                                         headers: {
                                             'Content-Type': 'application/json',
@@ -650,10 +654,8 @@
                             machine_code : DATA_FIX.MACHINE_CODE                            
                         })
                         }).then((response) => response.json())
-                        //Then with the data from the response in JSON...
                         .then((data) => {
                              console.log( data);
-                            // console.log(data.data.check_password == false)
                             if(data.statusCode == 201)
                             {
                                 if(data.data.check_password == false)
@@ -666,10 +668,10 @@
                                     }).then((value) => {
                                         location.reload();
                                     });
-
-
                                 }
-                                else{
+                                else
+                                {
+
                                     // true
                                     swal({
                                         width: 300,
@@ -677,39 +679,48 @@
                                         text: "รหัสผ่านถูกต้อง \n กรูณารอสักครู่",
                                         //button: "ตกลง",
                                     });
-                                    // send api python
-                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testGasIn", {
-                                        method: "POST", 
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        }
-                                    })
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        console.log("send api");
-                                        if(data.statusCode == 201)
-                                        {
 
-                                        }
-                                        else {
-                                           
-                                        }
-                                        
-                                    })
-                                    .catch((error) => {
-                                        clearInput();
-                                        console.log("catch");
-                                        swal({
-                                            html:true,
-                                            width: 300,
-                                            icon: "error",
-                                            text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                            button: "ตกลง",
+                                    // send api python
+                                    if(data.data.order_detail.send_type == "delivery") // 1/2 loop
+                                    {
+                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testOut", {
+                                            method: "POST", 
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            }
+                                        })
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            console.log("send api");
+                                            if(data.statusCode == 201)
+                                            {
+                                                
+                                            }
+                                            else {
+                                            
+                                            }
+                                            
+                                        })
+                                        .catch((error) => {
+                                            clearInput();
+                                            console.log("catch");
+                                            swal({
+                                                html:true,
+                                                width: 300,
+                                                icon: "error",
+                                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                                button: "ตกลง",
+                                            });
                                         });
-                                    });
+                                    }
+                                    else //pickup 1 loop
+                                    {
+
+                                    }                                    
                                 }
                             }
-                            else{
+                            else
+                            {
                                 swal({
                                     width: 300,
                                     icon: "error",
@@ -717,14 +728,11 @@
                                     button: "ตกลง",
                                 });
                                 clearInput();
-
-                            }
-                            
+                            }                            
                         })
                         //Then with the error genereted...
                         .catch((error) => {
                             clearInput();
-
                             swal({
                                 html:true,
                                 width: 300,

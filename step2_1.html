@@ -211,8 +211,16 @@
 <script >
     $(document).ready( ()=> {
 
+        //console.log('{"machine_id":"'+DATA_FIX.MACHINE_ID+'","machineCode":"'+DATA_FIX.MACHINE_CODE+'"}')
+
+        //{"machine_id":"1","machineCode":"GASSHOP14230"}
         // GEN QRCODE
-        $('#qrcode').append('<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='+DATA_FIX.MACHINE_ID+'-'+DATA_FIX.MACHINE_CODE+'&choe=UTF-8" id="qr1" />')
+        //  machine_id:1,machineCode:GASSHOP14230
+        // let strQr = '{"machine_id": "+DATA_FIX.MACHINE_ID+" ,"machineCode":"+DATA_FIX.MACHINE_CODE+"}' ;
+        // strQr = `"machine_id":1,"machineCode":"GASSHOP14230"`;
+        //strQr = "xx"
+        //$('#qrcode').append('<img src=https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='+str+'&choe=UTF-8" id="qr1" />')
+        $('#qrcode').append(`<img src="https://chart.googleapis.com/chart?cht=qr&chl=machine_id:${DATA_FIX.MACHINE_ID},machineCode:'${DATA_FIX.MACHINE_CODE}'&chs=300x300&choe=UTF-8" id="qr1" />`)
 
         $("#btn-cancle").click( ()=> {
             window.location.href = "index.html";
