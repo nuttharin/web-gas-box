@@ -113,6 +113,10 @@
         padding-top: 10px;
     }
 
+    .tab-button {
+        padding-top: 10%;
+    }
+
 
 </style>
 
@@ -123,7 +127,7 @@
     </nav>
    
 
-    <div class="">
+    <div class="tab-button">
         <div class="row text-center">
             <div class="col-md-4 col-sm-12">
 
@@ -394,12 +398,7 @@
         $("#box2").click( ()=> {
             window.location.href = "step2_2.html"
 
-        });
-        
-
-
-
-
+        });     
     });
 
     // span.onclick = function() {
@@ -458,46 +457,7 @@
                 {
                     if(pass == "111111")
                     {
-                        console.log("by Pass")
-                        fetch("http://"+ipAddress.URL_API_MID+"/app/post/machine/command/testGasOut", {
-                        method: "POST", 
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                        //,body: JSON.stringify({ password_machine : pass})
-                        }).then((response) => response.json())
-                        //Then with the data from the response in JSON...
-                        .then((data) => {
-                            console.log("then");
-                            console.log(data);
-                            // console.log(data.data.check_password == false)
-                            if(data.statusCode == 201)
-                            {
-                                console.log("201 IN");
-                            }
-                            else {
-                                // swal({
-                                //     width: 300,
-                                //     icon: "error",
-                                //     text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                //     button: "ตกลง",
-                                // });
-                            }
-                            
-                        })
-                        //Then with the error genereted...
-                        .catch((error) => {
-                            clearInput();
-                            console.log("catch");
-                            swal({
-                                html:true,
-                                width: 300,
-                                icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                button: "ตกลง",
-                            });
-                        });
-                        
+                                                
                     }
                     else 
                     {
@@ -539,10 +499,30 @@
                                 }
                                 else{
                                     // true
+
+                                    // {
+                                    //     "status": "success",
+                                    //     "statusCode": 201,
+                                    //     "data": {
+                                    //         "check_password": true,
+                                    //         "order_detail": {
+                                    //             "order_id": 65,
+                                    //             "machine_id": 1,
+                                    //             "order_number": "202105251305",
+                                    //             "send_type": "delivery",
+                                    //             "quality": null,
+                                    //             "statusorder": 3,
+                                    //             "statusReceive": null,
+                                    //             "qualityReceive": null
+                                    //         }
+                                    //     }
+                                    // }
+
+                                    gasQuality = data.data.order_detail.quality ;
                                     swal({
                                         width: 300,
                                         icon: "success",
-                                        text: "รหัสผ่านถูกต้อง \n กรูณารอสักครู่",
+                                        text: "รหัสผ่านถูกต้อง \n จำนวนที่ต้องคืน "+ gasQuality +"ถัง",
                                         //button: "ตกลง",
                                     });
                                     // send api python
@@ -599,46 +579,7 @@
                 {
                     if(pass == "111111")
                     {
-                        console.log("by Pass")
-                        fetch("http://"+ipAddress.URL_API_MID+"/app/post/machine/command/testGasOut", {
-                        method: "POST", 
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                        //,body: JSON.stringify({ password_machine : pass})
-                        }).then((response) => response.json())
-                        //Then with the data from the response in JSON...
-                        .then((data) => {
-                            console.log("then");
-                            console.log(data);
-                            // console.log(data.data.check_password == false)
-                            if(data.statusCode == 201)
-                            {
-                                console.log("201 OUT");
-                            }
-                            else {
-                                // swal({
-                                //     width: 300,
-                                //     icon: "error",
-                                //     text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                //     button: "ตกลง",
-                                // });
-                            }
-                            
-                        })
-                        //Then with the error genereted...
-                        .catch((error) => {
-                            clearInput();
-                            console.log("catch");
-                            swal({
-                                html:true,
-                                width: 300,
-                                icon: "error",
-                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                button: "ตกลง",
-                            });
-                        });
-                        
+                                                
                     }
                     else 
                     {
@@ -671,7 +612,6 @@
                                 }
                                 else
                                 {
-
                                     // true
                                     swal({
                                         width: 300,
