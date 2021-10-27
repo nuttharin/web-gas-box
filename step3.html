@@ -72,9 +72,9 @@
 
 
     }
-    .x {
+    /* .x {
         margin: 0 auto;
-    }
+    } */
 
     .btn-next  {
         background-color: #1568AC;
@@ -148,7 +148,7 @@
         <div class="row mb-3">
             <div class="col-md-4 col-sm-12 "></div>
             <div class="col-md-4 col-sm-12 align-items-center x">
-                <div class="row input-pass">
+                <div class="row input-pass d-flex justify-content-center">
                     <div class="col-md-2">
                         <input type="password" class="form-control" id="pass1" maxlength="1">
                     </div>
@@ -184,19 +184,19 @@
 
 
 
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-4 col-sm-12 "></div> 
-            <div class="col-md-4 col-sm-12 " id="pin">
-                <div class="align-items-center container x" > 
+            <div class="col-md-4 col-sm-12 align-items-center" id="pin">
+                <div class="container" > 
                     <div class="row mb-2">
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-pin" value="1" onclick="myFunction(1)">1</button>
+                            <button type="button" class="btn btn-pin" value="1" onclick="myFunction(1)" style="align-items: right;">1</button>
                         </div> 
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-pin" value="2" onclick="myFunction(2)">2</button>
+                            <button type="button" class="btn btn-pin" value="2" onclick="myFunction(2)" style="align-items: center;">2</button>
                         </div> 
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-pin" value="3" onclick="myFunction(3)">3</button>
+                            <button type="button" class="btn btn-pin" value="3" onclick="myFunction(3)"  style="align-items: left;">3</button>
                         </div>  
                     </div>
                 </div>
@@ -371,6 +371,7 @@
                 $('#pass'+lastInput.toString()).focus();
             }
             else{
+                lastInput = 1
                 console.log("del"+lastInput)
                 $('#pass'+(lastInput).toString()).val("");            
                 $('#pass'+lastInput.toString()).focus();
@@ -484,6 +485,7 @@
                             // }
                             // status: "success"
                             // statusCode: 201
+                            console.log(data)
                             if(data.statusCode == 201)
                             {
                                 if(data.data.check_password == false)
@@ -499,7 +501,6 @@
                                 }
                                 else{
                                     // true
-
                                     // {
                                     //     "status": "success",
                                     //     "statusCode": 201,
@@ -526,12 +527,16 @@
                                         //button: "ตกลง",
                                     });
                                     // send api python
-                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testIn", {
+                                    fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/in", {
                                         method: "POST", 
                                         headers: {
                                             'Content-Type': 'application/json',
                                         },
-                                        body: JSON.stringify({ password_machine : pass})
+                                        body: JSON.stringify({ 
+                                                order_id : data.data.order_detail.order_id,
+                                                quality : data.data.order_detail.quality,
+                                                machine_code : DATA_FIX.MACHINE_CODE                              
+                                            })
                                     })
                                     .then((response) => response.json())
                                     .then((data) => {
@@ -539,10 +544,18 @@
                                         console.log(data)
                                         if(data.statusCode == 201)
                                         {
-
+                                            swal({
+                                                width: 300,
+                                                icon: "success",
+                                                text: "กำลังดำเนินการ",
+                                            });
                                         }
                                         else {
-                                           
+                                            swal({
+                                                width: 300,
+                                                icon: "error",
+                                                text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                            });
                                         }
                                         
                                     })
@@ -563,7 +576,6 @@
                         })
                         .catch((error) => {
                             clearInput();
-
                             swal({
                                 html:true,
                                 width: 300,
@@ -620,24 +632,54 @@
                                         //button: "ตกลง",
                                     });
 
+                                    // {
+                                    //     "status":"success",
+                                    //     "statusCode":201,
+                                    //     "data":{
+                                    //         "check_password":true,
+                                    //         "order_detail":
+                                    //         {
+                                    //             "order_id":1861,
+                                    //             "machine_id":1,
+                                    //             "order_number":"202110121454",
+                                    //             "send_type":"delivery",
+                                    //             "quality":1,"statusorder":2,
+                                    //             "statusReceive":null,
+                                    //             "qualityReceive":null
+                                    //         }
+                                    //     }
+                                    // }
                                     // send api python
                                     if(data.data.order_detail.send_type == "delivery") // 1/2 loop
                                     {
-                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/testOut", {
+                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/inOut", {
                                             method: "POST", 
                                             headers: {
                                                 'Content-Type': 'application/json',
-                                            }
+                                            },
+                                            body: JSON.stringify({ 
+                                                order_id : data.data.order_detail.order_id,
+                                                quality : data.data.order_detail.quality,
+                                                machine_code : DATA_FIX.MACHINE_CODE                              
+                                            })
                                         })
                                         .then((response) => response.json())
                                         .then((data) => {
                                             console.log("send api");
                                             if(data.statusCode == 201)
                                             {
-                                                
+                                                swal({
+                                                    width: 300,
+                                                    icon: "success",
+                                                    text: "กำลังดำเนินการ",
+                                                });
                                             }
                                             else {
-                                            
+                                                swal({
+                                                    width: 300,
+                                                    icon: "error",
+                                                    text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                                });
                                             }
                                             
                                         })
@@ -655,7 +697,48 @@
                                     }
                                     else //pickup 1 loop
                                     {
-
+                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
+                                            method: "POST", 
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({ 
+                                                order_id : data.data.order_detail.order_id,
+                                                quality : data.data.order_detail.quality,
+                                                machine_code : DATA_FIX.MACHINE_CODE                              
+                                            })
+                                        })
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            console.log("send api");
+                                            if(data.statusCode == 201)
+                                            {
+                                                swal({
+                                                    width: 300,
+                                                    icon: "success",
+                                                    text: "กำลังดำเนินการ",
+                                                });
+                                            }
+                                            else {
+                                                swal({
+                                                    width: 300,
+                                                    icon: "error",
+                                                    text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                                });
+                                            }
+                                            
+                                        })
+                                        .catch((error) => {
+                                            clearInput();
+                                            console.log("catch");
+                                            swal({
+                                                html:true,
+                                                width: 300,
+                                                icon: "error",
+                                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                                button: "ตกลง",
+                                            });
+                                        });
                                     }                                    
                                 }
                             }
