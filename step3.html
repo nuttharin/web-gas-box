@@ -375,18 +375,15 @@
                 console.log("del"+lastInput)
                 $('#pass'+(lastInput).toString()).val("");            
                 $('#pass'+lastInput.toString()).focus();
-            }
-            
+            }            
         })
 
-        $('#btn-cancle').click(()=>{
-           
+        $('#btn-cancle').click(()=>{           
             window.location.href = "index.html"
-
         })
 
         
-        $("#box1").click( ()=> {
+        $("#box1").click( () => {
             if(type == "in")
             {
                 window.location.href = "step2_1.html"
@@ -398,7 +395,6 @@
 
         $("#box2").click( ()=> {
             window.location.href = "step2_2.html"
-
         });     
     });
 
@@ -437,8 +433,6 @@
 
         if(document.getElementById("pass6").value == "")
         {
-
-
             console.log("กด"+lastInput)
             document.getElementById("pass"+lastInput).value = data;
             if(lastInput < 6){
@@ -652,7 +646,7 @@
                                     // send api python
                                     if(data.data.order_detail.send_type == "delivery") // 1/2 loop
                                     {
-                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/inOut", {
+                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
                                             method: "POST", 
                                             headers: {
                                                 'Content-Type': 'application/json',
