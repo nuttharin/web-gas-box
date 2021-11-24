@@ -658,9 +658,7 @@
                                     if(data.data.order_detail.send_type == "delivery") // 1/2 loop
                                     {
                                         console.log(data.data.order_detail.quality)
-                                        if(data.data.order_detail.quality == 1)
-                                        {
-                                            fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
+                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
                                                 method: "POST", 
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -702,8 +700,52 @@
                                                     button: "ตกลง",
                                                 });
                                             });
-                                        }
-                                        else {
+                                        // if(data.data.order_detail.quality == 1)
+                                        // {
+                                        //     fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
+                                        //         method: "POST", 
+                                        //         headers: {
+                                        //             'Content-Type': 'application/json',
+                                        //         },
+                                        //         body: JSON.stringify({ 
+                                        //             order_id : data.data.order_detail.order_id,
+                                        //             quality : data.data.order_detail.quality,
+                                        //             machine_code : DATA_FIX.MACHINE_CODE                              
+                                        //         })
+                                        //     })
+                                        //     .then((response) => response.json())
+                                        //     .then((data) => {
+                                        //         console.log("send api");
+                                        //         if(data.statusCode == 201)
+                                        //         {
+                                        //             swal({
+                                        //                 width: 300,
+                                        //                 icon: "success",
+                                        //                 text: "กำลังดำเนินการ",
+                                        //             });
+                                        //         }
+                                        //         else {
+                                        //             swal({
+                                        //                 width: 300,
+                                        //                 icon: "error",
+                                        //                 text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                        //             });
+                                        //         }
+                                                
+                                        //     })
+                                        //     .catch((error) => {
+                                        //         clearInput();
+                                        //         console.log("catch");
+                                        //         swal({
+                                        //             html:true,
+                                        //             width: 300,
+                                        //             icon: "error",
+                                        //             text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                        //             button: "ตกลง",
+                                        //         });
+                                        //     });
+                                        // }
+                                        // else {
 
                                             console.log("<1")
                                             for (let i = 0; i < gasQuality; i++) {
