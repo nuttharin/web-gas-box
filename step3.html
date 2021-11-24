@@ -657,6 +657,7 @@
                                     
                                     if(data.data.order_detail.send_type == "delivery") // 1/2 loop
                                     {
+                                        console.log(data.data.order_detail.quality)
                                         if(data.data.order_detail.quality == 1)
                                         {
                                             fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
