@@ -469,7 +469,7 @@
                             })
                         }).then((response) => response.json())
                         //Then with the data from the response in JSON...
-                        .then((data) => {
+                        .then( async (data) => {
                             //console.log( data);
                             // data:
                             // check_password: true
@@ -517,20 +517,22 @@
                                     swal({
                                         width: 300,
                                         icon: "success",
-                                        text: "รหัสผ่านถูกต้อง \n จำนวนที่ต้องคืน "+ gasQuality +"ถัง",
+                                        text: "รหัสผ่านถูกต้อง ",
                                         //button: "ตกลง",
                                     });
+
+                                   
                                     // send api python
                                     fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/in", {
-                                        method: "POST", 
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({ 
-                                                order_id : data.data.order_detail.order_id,
-                                                quality : data.data.order_detail.quality,
-                                                machine_code : DATA_FIX.MACHINE_CODE                              
-                                            })
+                                    method: "POST", 
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ 
+                                            order_id : data.data.order_detail.order_id,
+                                            quality : data.data.order_detail.quality,
+                                            machine_code : DATA_FIX.MACHINE_CODE                              
+                                        })
                                     })
                                     .then((response) => response.json())
                                     .then((data) => {
@@ -556,6 +558,10 @@
                                     .catch((error) => {
                                         console.log("catch");
                                     });
+                                    console.log(1)
+                                    await sleep(2000);  
+                                    
+                                    
                                 }
                             }
                             else{
@@ -601,7 +607,7 @@
                             machine_code : DATA_FIX.MACHINE_CODE                            
                         })
                         }).then((response) => response.json())
-                        .then((data) => {
+                        .then(async (data) => {
                              console.log( data);
                             if(data.statusCode == 201)
                             {
@@ -619,10 +625,11 @@
                                 else
                                 {
                                     // true
+                                    gasQuality = data.data.order_detail.quality ;
                                     swal({
                                         width: 300,
                                         icon: "success",
-                                        text: "รหัสผ่านถูกต้อง \n กรูณารอสักครู่",
+                                        text: "รหัสผ่านถูกต้อง มีจำนวน "+ gasQuality + "ถัง",
                                         //button: "ตกลง",
                                     });
 
@@ -644,50 +651,103 @@
                                     //     }
                                     // }
                                     // send api python
+                                    function sleep(ms) {
+                                        return new Promise(resolve => setTimeout(resolve, ms));
+                                    }
+                                    
                                     if(data.data.order_detail.send_type == "delivery") // 1/2 loop
                                     {
-                                        fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
-                                            method: "POST", 
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                            body: JSON.stringify({ 
-                                                order_id : data.data.order_detail.order_id,
-                                                quality : data.data.order_detail.quality,
-                                                machine_code : DATA_FIX.MACHINE_CODE                              
+                                        if(gasQuality == 1)
+                                        {
+                                            fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
+                                                method: "POST", 
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({ 
+                                                    order_id : data.data.order_detail.order_id,
+                                                    quality : data.data.order_detail.quality,
+                                                    machine_code : DATA_FIX.MACHINE_CODE                              
+                                                })
                                             })
-                                        })
-                                        .then((response) => response.json())
-                                        .then((data) => {
-                                            console.log("send api");
-                                            if(data.statusCode == 201)
-                                            {
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                console.log("send api");
+                                                if(data.statusCode == 201)
+                                                {
+                                                    swal({
+                                                        width: 300,
+                                                        icon: "success",
+                                                        text: "กำลังดำเนินการ",
+                                                    });
+                                                }
+                                                else {
+                                                    swal({
+                                                        width: 300,
+                                                        icon: "error",
+                                                        text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                                    });
+                                                }
+                                                
+                                            })
+                                            .catch((error) => {
+                                                clearInput();
+                                                console.log("catch");
                                                 swal({
-                                                    width: 300,
-                                                    icon: "success",
-                                                    text: "กำลังดำเนินการ",
-                                                });
-                                            }
-                                            else {
-                                                swal({
+                                                    html:true,
                                                     width: 300,
                                                     icon: "error",
-                                                    text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                                    text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                                    button: "ตกลง",
                                                 });
-                                            }
-                                            
-                                        })
-                                        .catch((error) => {
-                                            clearInput();
-                                            console.log("catch");
-                                            swal({
-                                                html:true,
-                                                width: 300,
-                                                icon: "error",
-                                                text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
-                                                button: "ตกลง",
                                             });
-                                        });
+                                        }
+                                        for (let i = 0; i < gasQuality; i++) {
+                                            fetch("http://"+IP_ADDRESS.URL_API_MID+"/app/post/machine/command/gas/out", {
+                                                method: "POST", 
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({ 
+                                                    order_id : data.data.order_detail.order_id,
+                                                    quality : data.data.order_detail.quality,
+                                                    machine_code : DATA_FIX.MACHINE_CODE                              
+                                                })
+                                            })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                console.log("send api");
+                                                if(data.statusCode == 201)
+                                                {
+                                                    swal({
+                                                        width: 300,
+                                                        icon: "success",
+                                                        text: "กำลังดำเนินการ",
+                                                    });
+                                                }
+                                                else {
+                                                    swal({
+                                                        width: 300,
+                                                        icon: "error",
+                                                        text: "การส่งข้อมูลไปส่วนกลางผิดพลาด",
+                                                    });
+                                                }                                                
+                                            })
+                                            .catch((error) => {
+                                                clearInput();
+                                                console.log("catch");
+                                                swal({
+                                                    html:true,
+                                                    width: 300,
+                                                    icon: "error",
+                                                    text: "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อ Admin",
+                                                    button: "ตกลง",
+                                                });
+                                            });
+                                            console.log(1)
+                                            await sleep(2000);
+                                        }
+                                        
                                     }
                                     else //pickup 1 loop
                                     {
